@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import Spinner from './common/spinner';
+import PokemonsList from './pokemons-list';
+import Search from './search';
+import PokemonDetails from './pokemon-details';
 
 class Pokemons extends Component {
-    state = {}
+    state = {
+        pokemons: [],
+        loaded: false,
+        selectedItem: '',
+
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:3000/api/pokemons').then((response) => {
+            this.setState({
+                pokemons: response.data,
+                loaded: true
+            })
+        });
+    }
+
+    handleItemClick = (id) => {
+        this.setState({
+            selectedItem: id
+        })
+    }
+
+
     render() {
+        const { pokemons, loaded, selectedItem } = this.state;
         return (
-            <ul className="list-unstyled mt-5">
-                <li className="media">
-                    <img src="..." className="mr-3" alt="..." />
-                    <div className="media-body">
-                        <h5 className="mt-0 mb-1">List-based media object</h5>
-                        Cras sit amet nibh libero, in gravida nulla.
-                         </div>
-                </li>
-            </ul>
+
+            <div className="row">
+                <div className="col-md-6 p-5 bg-light">
+                    <Search />
+                    {loaded ?
+                        <PokemonsList pokemons={pokemons} onItemClick={this.handleItemClick} selectedItem={selectedItem} />
+                        : <Spinner />}
+                </div>
+                <div className="col-md-6">
+                    <PokemonDetails id={selectedItem} />
+                </div>
+            </div>
+
+
         );
     }
 }
