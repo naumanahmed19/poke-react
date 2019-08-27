@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Spinner from './common/spinner';
 import Like from './common/like';
 import { getPokemon } from '../services/pokemonsService';
@@ -10,7 +9,6 @@ class PokemonDetails extends Component {
         pokemon: [],
         loaded: false,
     }
-
 
     async componentWillReceiveProps(nextProps) {
         console.log(nextProps);
