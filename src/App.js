@@ -4,10 +4,14 @@ import Pokemons from './components/pokemons';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css'
+import NavBar from './components/navbar';
 
 function App() {
   return (
-    < Pokemons />
+    <React.Fragment>
+      <NavBar />
+      < Pokemons />
+    </React.Fragment>
   );
 }
 
