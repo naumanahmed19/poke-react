@@ -33,7 +33,7 @@ class Pokemons extends Component {
         const { pokemons, loaded, selectedItem } = this.state;
         return (
 
-            <div className="row">
+            <div className="row no-gutters">
                 <div className="col-md-6 p-5 bg-light">
                     <Search />
                     {loaded ?
@@ -41,7 +41,10 @@ class Pokemons extends Component {
                         : <Spinner />}
                 </div>
                 <div className="col-md-6">
-                    <PokemonDetails id={selectedItem} />
+                    <div className="position-fixed details p-5">
+                        <PokemonDetails id={selectedItem} />
+                    </div>
+
                 </div>
             </div>
 

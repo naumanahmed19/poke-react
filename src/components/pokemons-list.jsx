@@ -9,10 +9,9 @@ const PokemonsList = ({ pokemons, onItemClick, selectedItem }) => {
                     className={selectedItem === pokemon._id ? 'list-group-item active' : 'list-group-item'}
                     onClick={() => onItemClick(pokemon._id)} >
                     <div className="d-flex align-items-center">
-                        <img src={pokemon.image} className="mr-3" alt="..." width="40" />
+                        <img src={pokemon.image} className="mr-3 rounded-circle bg-light" alt={pokemon.name} width="40" />
                         <div className="media-body">
                             <h6 className="mt-0 mb-1">{pokemon.name}</h6>
-                            {/* <small>Height: {pokemon.height} |  Weight: {pokemon.weight}</small> */}
                         </div>
                     </div>
                 </li>
