@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Spinner from './common/spinner';
 import Like from './common/like';
+import { getPokemon } from '../services/pokemonsService';
 
 class PokemonDetails extends Component {
     state = {
@@ -11,22 +12,19 @@ class PokemonDetails extends Component {
     }
 
 
-    componentWillReceiveProps(nextProps) {
+    async componentWillReceiveProps(nextProps) {
         console.log(nextProps);
         if (nextProps.id !== this.state.pokemon._id) {
             this.setState({
-
                 loaded: false
             });
-            axios.get(`http://localhost:3000/api/pokemons/${nextProps.id}`).then((response) => {
-                this.setState({
-                    pokemon: response.data,
-                    loaded: true
-                });
+
+            const { data } = await getPokemon(nextProps.id)
+
+            this.setState({
+                pokemon: data,
+                loaded: true
             });
-
-
-
         }
     }
 

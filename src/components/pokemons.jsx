@@ -4,6 +4,7 @@ import Spinner from './common/spinner';
 import PokemonsList from './pokemons-list';
 import Search from './search';
 import PokemonDetails from './pokemon-details';
+import { getPokemons } from '../services/pokemonsService';
 
 class Pokemons extends Component {
     state = {
@@ -13,13 +14,15 @@ class Pokemons extends Component {
 
     }
 
-    componentDidMount() {
-        axios.get('http://localhost:3000/api/pokemons').then((response) => {
-            this.setState({
-                pokemons: response.data,
-                loaded: true
-            })
-        });
+    async componentDidMount() {
+
+        const { data } = await getPokemons();
+
+        this.setState({
+            pokemons: data,
+            loaded: true
+        })
+
     }
 
     handleItemClick = (id) => {
