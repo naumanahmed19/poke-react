@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 
 import { Modal, Button, Form, FormGroup } from 'react-bootstrap';
 import LoginForm from './auth/loginForm';
@@ -32,6 +32,8 @@ class NavBar extends Component {
                         </Modal.Header>
                         <Modal.Body>
                             <LoginForm />
+
+                            <Link to="/register" onClick={handleClose}>Create New Account</Link>
                         </Modal.Body>
 
                     </Modal>
@@ -40,7 +42,7 @@ class NavBar extends Component {
         }
         return (
             <div class="d-flex sticky-top  flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
-                <h5 class="my-0  font-weight-normal">[ - Pokemons - ]</h5>
+                <h5 class="my-0  font-weight-normal"><Link to="/">[ - Pokemons - ]</Link></h5>
                 <nav class="my-2 my-md-0 mr-md-3 mr-md-auto mr-3 ml-4">
                     <a class="p-2 text-dark" href="#">My Favourites</a>
                 </nav>
