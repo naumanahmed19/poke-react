@@ -4,52 +4,44 @@ import { Link } from 'react-router-dom';
 import { Modal, Button, Form, FormGroup } from 'react-bootstrap';
 import LoginForm from './auth/loginForm';
 
-class NavBar extends Component {
-    state = {}
+const NavBar = ({ user }) => {
+    return (
 
 
-    render() {
-        function Example() {
-            const [show, setShow] = useState(false);
-            const handleClose = () => setShow(false);
-            const handleShow = () => setShow(true);
+        <div className="
+       
+        d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm  sticky-top ">
+            <h5 className="my-0 mr-md-auto font-weight-normal"><Link to="/">[ - Pokemons - ]</Link></h5>
+            <nav className="my-2 my-md-0 mr-md-3">
 
-            const handleClick = () => {
-                console.log('goo');
-            }
+                <a className="p-2 text-dark" href="#">My Favourites</a>
 
-            return (
 
-                <>
+                {(!user) && (
+                    <>
+                        <Link to="/login" className="p-2 text-dark">Login</Link>
+                        <Link to="/register" className="p-2 text-dark">Register</Link>
+                    </>
+                )}
+                {(user) && (
+                    <>
+                        <Link to="/login" className="p-2 text-dark">{user.name}</Link>
+                        <Link to="/logout" className="p-2 text-dark">Logout</Link>
+                    </>
+                )}
 
-                    <Button variant="outline-primary" onClick={handleShow}>
-                        Login In
-                </Button>
 
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Login</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <LoginForm />
 
-                            <Link to="/register" onClick={handleClose}>Create New Account</Link>
-                        </Modal.Body>
 
-                    </Modal>
-                </>
-            );
-        }
-        return (
-            <div class="d-flex sticky-top  flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
-                <h5 class="my-0  font-weight-normal"><Link to="/">[ - Pokemons - ]</Link></h5>
-                <nav class="my-2 my-md-0 mr-md-3 mr-md-auto mr-3 ml-4">
-                    <a class="p-2 text-dark" href="#">My Favourites</a>
-                </nav>
-                <Example />
-            </div>
-        );
-    }
+
+
+            </nav>
+
+
+
+
+        </div>
+
+    );
 }
-
 export default NavBar;

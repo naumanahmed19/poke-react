@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import RegisterForm from './registerForm';
+import LoginForm from './loginForm';
 
-class RegisterPage extends Component {
-
+class LoginPage extends Component {
     render() {
+        console.log(this.props.history);
         return (
             <main className="container">
                 <div className="row">
@@ -11,8 +11,8 @@ class RegisterPage extends Component {
                         <div className="card mt-5 bg-light">
                             <div className="card-body">
 
-                                <h1>Register Now</h1>
-                                <RegisterForm history={this.props.history} />
+                                <h1>Login Now</h1>
+                                <LoginForm history={this.props.history} />
                             </div>
                         </div>
                     </div>
@@ -22,4 +22,4 @@ class RegisterPage extends Component {
     }
 }
 
-export default RegisterPage;
+export default LoginPage;

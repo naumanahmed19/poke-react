@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Input = ({ name, label, type, value, onChange, error }) => {
     return (
         <div className="from-group">

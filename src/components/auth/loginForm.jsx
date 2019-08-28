@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-
+import Joi from '@hapi/joi';
 import Form from '../common/form';
-const Joi = require('@hapi/joi');
+import { login } from '../../services/userService';
+import { async } from 'q';
+
+
 
 class LoginForm extends Form {
     state = {
@@ -13,9 +16,19 @@ class LoginForm extends Form {
         email: Joi.string().email({ minDomainSegments: 2 }).label('Email'),
         password: Joi.string().label('Password')
     }
+    doSubmit = async () => {
+        try {
+            const { data: jwt } = await login(this.state.data);
+            localStorage.setItem('token', jwt);
+            window.location = '/';
 
-    doSubmit = () => {
-        console.log('here');
+        } catch (ex) {
+            if (ex.response && ex.response.status === 400) {
+                const errors = { ...this.state.errors };
+                errors.email = ex.response.data;
+                this.setState({ errors });
+            }
+        }
     }
 
     render() {
