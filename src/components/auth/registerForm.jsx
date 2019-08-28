@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Joi from '@hapi/joi';
+import { Redirect } from 'react-router-dom';
 import Form from '../common/form';
 import { register } from '../../services/userService';
+import auth from '../../services/authService';
 
 
 class RegisterForm extends Form {
@@ -19,7 +21,7 @@ class RegisterForm extends Form {
     doSubmit = async () => {
         try {
             const response = await register(this.state.data);
-            localStorage.setItem('token', response.headers['x-auth-token']);
+            auth.loginWithJwt('token', response.headers['x-auth-token']);
             window.location = '/';
         } catch (ex) {
             if (ex.response && ex.response.status === 400) {
@@ -33,7 +35,7 @@ class RegisterForm extends Form {
     }
 
     render() {
-
+        if (auth.getCurrentUser()) return <Redirect to="/" />;
         return (
 
             <form onSubmit={this.handleSubmit}>

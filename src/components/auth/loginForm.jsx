@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Joi from '@hapi/joi';
 import Form from '../common/form';
-import { login } from '../../services/userService';
-import { async } from 'q';
+import auth from '../../services/authService';
 
 
 
@@ -18,8 +18,7 @@ class LoginForm extends Form {
     }
     doSubmit = async () => {
         try {
-            const { data: jwt } = await login(this.state.data);
-            localStorage.setItem('token', jwt);
+            await auth.login(this.state.data);
             window.location = '/';
 
         } catch (ex) {
@@ -32,7 +31,7 @@ class LoginForm extends Form {
     }
 
     render() {
-
+        if (auth.getCurrentUser()) return <Redirect to="/" />;
         return (
             <form onSubmit={this.handleSubmit}>
                 {this.renderInput('Email', 'email', 'email')}
