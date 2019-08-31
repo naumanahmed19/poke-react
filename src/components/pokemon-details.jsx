@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Spinner from './common/spinner';
 import Like from './common/like';
+import { authenticated } from '../services/authService';
 import { getPokemon } from '../services/pokemonsService';
 
 class PokemonDetails extends Component {
@@ -28,7 +29,19 @@ class PokemonDetails extends Component {
 
 
     handleLike = pokemon => {
-        const newpokemon = this.setState.pokemon;
+
+        console.log(this.props.history);
+        if (!authenticated())
+            this.props.history.push({
+                pathname: '/login',
+                state: { from: this.props.history.locations }
+            })
+
+
+
+
+
+        const newpokemon = this.state.pokemon;
         newpokemon.liked = !newpokemon.liked;
         this.setState({
             pokemon: newpokemon
@@ -36,6 +49,9 @@ class PokemonDetails extends Component {
     }
 
     render() {
+
+
+
         const { id } = this.props;
         const { loaded, pokemon } = this.state;
         return (
@@ -45,7 +61,9 @@ class PokemonDetails extends Component {
                         <div className="d-flex align-items-center mb-3">
                             <img src={pokemon.image} className="mr-3 rounded-circle bg-light" alt={pokemon.name} />
                             <h1>{pokemon.name}</h1>
-                            <Like liked={pokemon.liked} onLike={this.handleLike} />
+
+
+                            <Like liked={pokemon.liked} onLike={() => this.handleLike(pokemon)} />
                             <button type="button" class="btn btn-outline-primary ml-auto">Download</button>
                         </div>
                         <ul className="list-group">

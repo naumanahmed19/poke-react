@@ -34,9 +34,14 @@ export function getCurrentUser() {
     }
 }
 
+export function authenticated() {
+    return localStorage.getItem(tokenKey) ? true : false;
+}
+
 export default {
     login,
     logout,
     getCurrentUser,
     loginWithJwt,
+    authenticated,
 }

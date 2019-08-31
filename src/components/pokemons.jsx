@@ -45,7 +45,7 @@ class Pokemons extends Component {
                 </div>
                 <div className="col-md-6">
                     <div className="position-fixed details p-5">
-                        <PokemonDetails id={selectedItem} />
+                        <PokemonDetails id={selectedItem} history={this.props.history} />
                     </div>
 
                 </div>
