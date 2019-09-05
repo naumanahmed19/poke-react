@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import Spinner from './common/spinner';
 import Like from './common/like';
-import { authenticated } from '../services/authService';
+import { getCurrentUser, authenticated } from '../services/authService';
 import { getPokemon } from '../services/pokemonsService';
+import { addToFavourites } from '../services/favouriteService';
+
 
 class PokemonDetails extends Component {
     state = {
         id: '',
         pokemon: [],
         loaded: false,
+        liked: false,
     }
 
+
+
+
     async componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if (nextProps.id !== this.state.pokemon._id) {
             this.setState({
                 loaded: false
@@ -22,13 +27,28 @@ class PokemonDetails extends Component {
 
             this.setState({
                 pokemon: data,
-                loaded: true
+                loaded: true,
+
+
             });
+
+            //like update
+            if (this.state.pokemon.likes && this.state.pokemon.likes.length) {
+                const copyPokemon = this.state.pokemon;
+                copyPokemon.liked = copyPokemon.likes.includes(getCurrentUser()._id);
+                this.setState({
+                    pokemon: copyPokemon,
+                })
+            }
+
         }
+
+
     }
 
 
-    handleLike = pokemon => {
+
+    handleLike = async pokemon => {
 
         console.log(this.props.history);
         if (!authenticated())
@@ -39,21 +59,30 @@ class PokemonDetails extends Component {
 
 
 
+        const response = await addToFavourites(pokemon);
+
+        if (response.status === 200) {
+            const newpokemon = this.state.pokemon;
+            newpokemon.liked = !newpokemon.liked;
+
+            this.setState({
+                pokemon: newpokemon
+            });
+        }
 
 
-        const newpokemon = this.state.pokemon;
-        newpokemon.liked = !newpokemon.liked;
-        this.setState({
-            pokemon: newpokemon
-        });
     }
+
+
 
     render() {
 
-
-
         const { id } = this.props;
         const { loaded, pokemon } = this.state;
+        console.log(pokemon.likes);
+
+
+
         return (
             id ?
                 loaded ?
@@ -61,7 +90,6 @@ class PokemonDetails extends Component {
                         <div className="d-flex align-items-center mb-3">
                             <img src={pokemon.image} className="mr-3 rounded-circle bg-light" alt={pokemon.name} />
                             <h1>{pokemon.name}</h1>
-
 
                             <Like liked={pokemon.liked} onLike={() => this.handleLike(pokemon)} />
                             <button type="button" class="btn btn-outline-primary ml-auto">Download</button>
