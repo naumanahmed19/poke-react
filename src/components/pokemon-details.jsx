@@ -5,6 +5,7 @@ import { getCurrentUser, authenticated } from '../services/authService';
 import { getPokemon } from '../services/pokemonsService';
 import { addToFavourites } from '../services/favouriteService';
 
+import { Parser } from 'json2csv';
 
 class PokemonDetails extends Component {
     state = {
@@ -56,8 +57,6 @@ class PokemonDetails extends Component {
                 state: { from: this.props.history.locations }
             })
 
-
-
         const response = await addToFavourites(pokemon);
 
         if (response.status === 200) {
@@ -69,6 +68,25 @@ class PokemonDetails extends Component {
             });
         }
 
+
+    }
+
+    handleDownload = () => {
+
+        const fields = ['name', 'weight', 'height'];
+        try {
+            const parser = new Parser(fields);
+            const csv = parser.parse(this.state.pokemon);
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csv));
+            element.setAttribute('download', this.state.pokemon.name);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        } catch (err) {
+            console.error(err);
+        }
 
     }
 
@@ -88,7 +106,7 @@ class PokemonDetails extends Component {
                             <h1>{pokemon.name}</h1>
 
                             <Like liked={pokemon.liked} onLike={() => this.handleLike(pokemon)} />
-                            <button type="button" class="btn btn-outline-primary ml-auto">Download</button>
+                            <button type="button" class="btn btn-outline-primary ml-auto" onClick={this.handleDownload}>Download</button>
                         </div>
                         <ul className="list-group">
                             <li className="list-group-item">
