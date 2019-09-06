@@ -4,8 +4,6 @@ import Joi from '@hapi/joi';
 import Form from '../common/form';
 import auth from '../../services/authService';
 
-
-
 class LoginForm extends Form {
     state = {
         data: { email: '', password: '' },
@@ -17,14 +15,10 @@ class LoginForm extends Form {
         password: Joi.string().label('Password')
     }
     doSubmit = async () => {
+
         try {
             await auth.login(this.state.data);
-
-            const { state } = this.props.location;
-
-            window.location = state ? state.form.pathname : '/';
-
-
+            window.location = '/';
         } catch (ex) {
             if (ex.response && ex.response.status === 400) {
                 const errors = { ...this.state.errors };

@@ -33,7 +33,7 @@ class PokemonDetails extends Component {
             });
 
             //like update
-            if (this.state.pokemon.likes && this.state.pokemon.likes.length) {
+            if (authenticated() && this.state.pokemon.likes && this.state.pokemon.likes.length) {
                 const copyPokemon = this.state.pokemon;
                 copyPokemon.liked = copyPokemon.likes.includes(getCurrentUser()._id);
                 this.setState({
@@ -50,7 +50,6 @@ class PokemonDetails extends Component {
 
     handleLike = async pokemon => {
 
-        console.log(this.props.history);
         if (!authenticated())
             this.props.history.push({
                 pathname: '/login',
@@ -79,9 +78,6 @@ class PokemonDetails extends Component {
 
         const { id } = this.props;
         const { loaded, pokemon } = this.state;
-        console.log(pokemon.likes);
-
-
 
         return (
             id ?

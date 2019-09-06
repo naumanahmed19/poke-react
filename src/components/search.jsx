@@ -5,9 +5,11 @@ class Search extends Component {
     state = {}
     render() {
         return (
-            <form>
-                <input className="form-control form-control-lg" type="text" placeholder="Search ..."></input>
-            </form>
+            <input
+                className="form-control form-control-lg"
+                name="s" type="text"
+                placeholder="Search ..."
+                onChange={(evt) => this.props.onChange(evt)}></input>
         );
     }
 }
