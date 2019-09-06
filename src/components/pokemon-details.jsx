@@ -17,7 +17,6 @@ class PokemonDetails extends Component {
 
 
 
-
     async componentWillReceiveProps(nextProps) {
         if (nextProps.id !== this.state.pokemon._id) {
             this.setState({
@@ -29,8 +28,6 @@ class PokemonDetails extends Component {
             this.setState({
                 pokemon: data,
                 loaded: true,
-
-
             });
 
             //like update
@@ -41,24 +38,18 @@ class PokemonDetails extends Component {
                     pokemon: copyPokemon,
                 })
             }
-
         }
-
-
     }
 
 
-
+    //Allow LoggedIn user - Add To Favourites
     handleLike = async pokemon => {
-
         if (!authenticated())
             this.props.history.push({
                 pathname: '/login',
                 state: { from: this.props.history.locations }
             })
-
         const response = await addToFavourites(pokemon);
-
         if (response.status === 200) {
             const newpokemon = this.state.pokemon;
             newpokemon.liked = !newpokemon.liked;
@@ -67,12 +58,11 @@ class PokemonDetails extends Component {
                 pokemon: newpokemon
             });
         }
-
-
     }
 
-    handleDownload = () => {
 
+    //Convert json to CSV & Download
+    handleDownload = () => {
         const fields = ['name', 'weight', 'height'];
         try {
             const parser = new Parser(fields);
@@ -87,7 +77,6 @@ class PokemonDetails extends Component {
         } catch (err) {
             console.error(err);
         }
-
     }
 
 
@@ -104,7 +93,6 @@ class PokemonDetails extends Component {
                         <div className="d-flex align-items-center mb-3">
                             <img src={pokemon.image} className="mr-3 rounded-circle bg-light" alt={pokemon.name} />
                             <h1>{pokemon.name}</h1>
-
                             <Like liked={pokemon.liked} onLike={() => this.handleLike(pokemon)} />
                             <button type="button" class="btn btn-outline-primary ml-auto" onClick={this.handleDownload}>Download</button>
                         </div>
@@ -118,8 +106,6 @@ class PokemonDetails extends Component {
                             <li className="list-group-item">
                                 Base Experience <span className="badge badge-secondary float-right">{pokemon.base_experience} </span>
                             </li>
-
-
                         </ul>
                     </div>
                     : <Spinner />
