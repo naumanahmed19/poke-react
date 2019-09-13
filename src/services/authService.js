@@ -5,14 +5,12 @@ import httpService from './httpService';
 
 const tokenKey = 'token';
 
-const options = { headers: { 'Content-Type': 'application/json; charset=UTF-8' } };
-
 
 export async function login(user) {
     const { data: jwt } = await httpService.post('/auth/', {
         email: user.email,
         password: user.password,
-    }, options);
+    });
 
     localStorage.setItem(tokenKey, jwt);
 }

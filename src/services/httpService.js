@@ -3,6 +3,12 @@ import { getJwt } from './authService';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
+
+axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+});
+
 axios.defaults.headers.common['x-auth-token'] = getJwt();
 
 
