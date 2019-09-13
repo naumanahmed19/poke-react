@@ -12,6 +12,9 @@ import './App.css';
 import Logout from './components/auth/logout';
 import auth from './services/authService';
 
+
+console.log(process.env);
+
 class App extends Component {
 
   state = {
