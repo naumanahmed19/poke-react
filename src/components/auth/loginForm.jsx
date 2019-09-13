@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Joi from '@hapi/joi';
 import Form from '../common/form';

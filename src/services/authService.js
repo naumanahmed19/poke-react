@@ -1,14 +1,15 @@
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 
-const apiEndPoint = 'http://localhost:3000/api/auth';
+import jwtDecode from 'jwt-decode';
+import httpService from './httpService';
+
+
 const tokenKey = 'token';
 
 const options = { headers: { 'Content-Type': 'application/json; charset=UTF-8' } };
 
 
 export async function login(user) {
-    const { data: jwt } = await axios.post(apiEndPoint, {
+    const { data: jwt } = await httpService.post('/auth/', {
         email: user.email,
         password: user.password,
     }, options);
@@ -38,7 +39,7 @@ export function authenticated() {
     return localStorage.getItem(tokenKey) ? true : false;
 }
 
-export function getJwt() {
+export function getJwt(tokenKey = 'token') {
     return localStorage.getItem(tokenKey);
 }
 

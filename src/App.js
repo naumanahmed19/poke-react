@@ -6,7 +6,6 @@ import NavBar from './components/navbar';
 import RegisterPage from './components/auth/register-page';
 import NotFoundPage from './components/not-found-page';
 import LoginPage from './components/auth/login-page';
-import LoginForm from './components/auth/loginForm';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css'
 import './App.css';

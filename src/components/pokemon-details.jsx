@@ -89,12 +89,12 @@ class PokemonDetails extends Component {
         return (
             id ?
                 loaded ?
-                    <div className="">
+                    <div>
                         <div className="d-flex align-items-center mb-3">
                             <img src={pokemon.image} className="mr-3 rounded-circle bg-light" alt={pokemon.name} />
                             <h1>{pokemon.name}</h1>
                             <Like liked={pokemon.liked} onLike={() => this.handleLike(pokemon)} />
-                            <button type="button" class="btn btn-outline-primary ml-auto" onClick={this.handleDownload}>Download</button>
+                            <button type="button" className="btn btn-outline-primary ml-auto" onClick={this.handleDownload}>Download</button>
                         </div>
                         <ul className="list-group">
                             <li className="list-group-item">

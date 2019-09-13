@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Spinner from './common/spinner';
 import PokemonsList from './pokemons-list';
 import Search from './search';
@@ -7,7 +6,6 @@ import PokemonDetails from './pokemon-details';
 import { getPokemons } from '../services/pokemonsService';
 import { authenticated } from '../services/authService';
 import Filter from './filter';
-import Input from './common/input';
 
 class Pokemons extends Component {
     state = {
@@ -39,7 +37,7 @@ class Pokemons extends Component {
         if (!paramsObject.favourites) delete paramsObject['favourites'];
 
         //If name is empty delete from object
-        if (paramsObject.name == "") delete paramsObject['name'];
+        if (paramsObject.name === "") delete paramsObject['name'];
 
         //Conver object to params
         const params = Object.entries(paramsObject).map(([key, val]) => `${key}=${val}`).join('&');
@@ -60,15 +58,17 @@ class Pokemons extends Component {
 
 
     handleSearch = (evt) => {
-        const state = this.state.fillter.name = evt.target.value;
+        const fillter = this.state.fillter;
+        const state = fillter.name = evt.target.value;
         this.setState({ state });
         this.fetchPokemons();
     }
 
 
     handleFillterFavourites = () => {
-        let fav = !this.state.fillter.favourites; //Toggle Favourites button
-        let state = this.state.fillter.favourites = fav;
+        const fillter = this.state.fillter;
+        //Toggle Favourites button
+        const state = fillter.favourites = !fillter.favourites;
         this.setState({ state });
         this.fetchPokemons();
     }
@@ -95,8 +95,6 @@ class Pokemons extends Component {
 
                 </div>
             </div>
-
-
         );
     }
 }

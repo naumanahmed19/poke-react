@@ -1,11 +1,8 @@
-import axios from 'axios';
-
-
-const apiEndPoint = 'http://localhost:3000/api/users';
+import httpService from './httpService';
 
 const options = { headers: { 'Content-Type': 'application/json; charset=UTF-8' } };
 export function register(user) {
-    return axios.post(apiEndPoint, {
+    return httpService.post('/users', {
         name: user.name,
         email: user.email,
         password: user.password,
@@ -14,7 +11,7 @@ export function register(user) {
 
 
 export function login(user) {
-    return axios.post('http://localhost:3000/api/auth', {
+    return httpService.post('/auth', {
         email: user.email,
         password: user.password,
     }, options);
