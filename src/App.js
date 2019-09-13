@@ -13,22 +13,16 @@ import Logout from './components/auth/logout';
 import auth from './services/authService';
 
 
-console.log(process.env);
-
 class App extends Component {
-
   state = {
     user: '',
   }
-
   componentDidMount() {
     const user = auth.getCurrentUser();
     this.setState({ user });
   }
 
   render() {
-
-
     return (
       <React.Fragment>
         <NavBar user={this.state.user} />
@@ -43,8 +37,6 @@ class App extends Component {
       </React.Fragment >
     )
   }
-
-
 }
 
 export default App;
